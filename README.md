@@ -178,6 +178,10 @@ tt.registerTransition('testTransition', function(tt, one, two, three){
 	})
 });
 
+tt('selector').transitions({
+	'testTransition' : [100, 400],
+});
+
 ```
 
 ```html
