@@ -3,6 +3,8 @@ tickertape
 
 A little engine for scroll-based storytelling.
 
+**Note** that this is very much a work-in-progress, currently is a skeletal project with notes for implementation. 
+
 Mapping out a basic API
 ------------------------
 
