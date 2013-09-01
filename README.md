@@ -22,17 +22,41 @@ tt(function(event){
 
 ```
 
+Or for a specific element:
+
+```js
+
+tt('selector', function(event, element){
+	// code that runs every "tick" on this particular element
+});
+
+```
+
 What might be in the event object?
 
 ```js
 {
 	instance : tt, // instance of tt (object)
-	scrollTop : 500, // scroll position at top of viewport (number)
+	scrollTop : 500, // scroll position at top of viewport (number),
+	scrollSpeed: 50,
+	scrollAccelleration: 1.5,
 	scrollBottom : 800, // scroll position at bottom of viewport
 	selectorEngine : jQuery, // uses jQuery's sizzle
 	eventEngine : jQuery, // use jQuery for events
 	deferredEngine : jQuery // use jQuery for deferred objects
 	// ... what else?
+}
+```
+
+If we specify a specific element:
+
+```js
+
+{
+	// ... same as above, plus
+	target,
+	targetTop: 200,
+	targetBottom: 400,
 }
 ```
 
@@ -74,12 +98,20 @@ tt('#selector').middle(500, function(event){
 Or fire an event/callback when a certain scroll position is reached:
 
 ```js
-// can also have it return a deferred object?
-tt.on(500).then(function(){
+tt.on(500, function(event){
 	// general event when scroll position is reached
 });
 
 ```
+
+Or do the same, but only the first time that position is reached
+
+```js
+tt.once(500, function(event){
+	// general event when scroll position is reached
+});
+```
+
 
 Or maybe set up a rule that only fires between a range of scroll positions?
 
@@ -94,20 +126,19 @@ tt.between(500, 800, function(event){
 Register a "script" in object form
 
 ```js
-tt.register({
-	"selector" : {
-		"500" : {
-			// some settings here?
-		},
-		"600" : {
-			// more settings here?
-		}
-	},
-	"selector" : {
-		"top" : function() {
+tt.script({
+	"#elementOne" : {
+		"500" : function(event) {
 
 		},
-		"200" : function() {
+		"600" : function(event)
+		}
+	},
+	".class" : {
+		"top" : function(event) {
+
+		},
+		"200" : function(event) {
 
 		}
 	}
@@ -115,30 +146,7 @@ tt.register({
 
 ```
 
-Maybe a way to register css transitions?
-
-```js
-tt('selector').transition(
-	[100, 400, 800],
-	{
-		// css rules for 100
-	},
-	{
-		// css rules for 400
-	},
-	function(event) {
-
-		// execute js
-
-		return {
-			// return css rules for 400?
-		}
-	}
-);
-
-```
-
-Maybe some sort of plugin syntax?
+Maybe some sort of plugin syntax? This will need to be pretty well thought-out. 
 
 ```js
 tt.plugin({
@@ -175,11 +183,20 @@ Or at least a nice syntax for registering transitions?
 tt.registerTransition('testTransition', function(tt, one, two, three){
 	tt.on(one, function(){
 		// do some stuff
-	})
+	});
+
+	if(three) {
+		tt.on(two, function(){
+			// do something else
+		});
+	}
 });
 
+tt('selector').transition('testTransition', one, two, three);
+
 tt('selector').transitions({
-	'testTransition' : [100, 400],
+	'testTransition' : [100, 400, true],
+	'anotherTransition' : [500, 600, 700]
 });
 
 ```
