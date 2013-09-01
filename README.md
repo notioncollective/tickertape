@@ -5,7 +5,39 @@ A little engine for scroll-based storytelling.
 
 **Note** that this is very much a work-in-progress, currently is a skeletal project with notes for implementation. 
 
-Mapping out a basic API
+What should it do?
+-------------------
+  * Provide a simple, dependable, and efficient engine for attaching events to scroll position.
+  * Be as dependency-free as possible, but able to take advantage of other libraries when available.
+  * Make it equally feasible to work primarily in HTML, JSON, or JavaScript -- or all of the above -- in orchestrating a scroll-based experience.
+  * Have an extensible architecture that allows easy customization.
+  * Have a straightforward and dorumented API.
+  * Work really well on mobile platforms.
+
+The core
+---------
+
+The core is the "ticker", the engine that manages monitoring the scroll behavior across clients as consistently as possible and firing callbacks based on specific scroll events.
+
+
+Extensibility
+-------------
+
+### Transitions
+
+These are simple re-usable transitions that are defined as a JavaScript callback function. They are always passed the tickertape event, as well as a non-predefined number of arguments. 
+
+### Plugins
+
+There should be a plugin archectecture that allows for bundling of transitions, data-attribute triggers, and miscellanious other JavaScript operations into one package. For instance, there could be a "skrollr" module that essentially mimics the behavior of the popular skrollr JavaScript tool. Or there could be a "media" plugin that fires specific media (i.e. video) events based on scroll position. Or there could be a "myApp" plugin that handles all of application-specific logic for your project.
+
+
+Scroll Events
+--------------
+
+The obvious core will be position based events, i.e. fired when `scrollTop` is at a specific number. But what other events do we want to have? How do you account for responsive design that has varying heights and positions based on the client type and size? This will take some thought.
+
+Sketching out a basic API
 ------------------------
 
 Some ideas about hos this thing will work. Tickertape will use the `tt` namespace.
