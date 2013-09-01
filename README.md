@@ -29,7 +29,7 @@ These are simple re-usable transitions that are defined as a JavaScript callback
 
 ### Plugins
 
-There should be a plugin archectecture that allows for bundling of transitions, data-attribute triggers, and miscellanious other JavaScript operations into one package. For instance, there could be a "skrollr" module that essentially mimics the behavior of the popular skrollr JavaScript tool. Or there could be a "media" plugin that fires specific media (i.e. video) events based on scroll position. Or there could be a "myApp" plugin that handles all of application-specific logic for your project.
+There should be a plugin archectecture that allows for bundling of transitions, data-attribute triggers, and miscellanious other JavaScript operations into one package. For instance, there could be a "skrollr" module that essentially mimics the behavior of the popular skrollr JavaScript tool. Or there could be a simple "css" plugin that performs css transitions based on scroll position. Or there could be a "media" plugin that fires specific media (i.e. video) events based on scroll position. Or there could be a "myApp" plugin that handles all of application-specific logic for your project.
 
 
 Scroll Events
@@ -58,7 +58,7 @@ Or for a specific element:
 
 ```js
 
-tt('selector', function(event, element){
+tt('#selector', function(event, element){
 	// code that runs every "tick" on this particular element
 });
 
@@ -80,7 +80,7 @@ What might be in the event object?
 }
 ```
 
-If we specify a specific element:
+If we specify an element:
 
 ```js
 
@@ -88,25 +88,29 @@ If we specify a specific element:
 	// ... same as above, plus
 	target,
 	targetTop: 200,
-	targetBottom: 400,
+	targetBottom: 400
 }
 ```
 
 Configuration allows for differend selector engines etc. Maybe by default it will look for jQuery?
 
 ```js
-tt.config({
-	selectorEngine: $,
-	eventEngine: $,
-	deferredEngine: $
+tt.start({
+	selectorEngine: jQuery,
+	eventEngine: new Mediator()
 });
 
 ```
 
-
 Events/callbacks for specific scroll positions:
 
 ```js
+tt('#selector').on(500, function(event){
+	// do something when the top of the selected element reaches scroll position 500
+});
+
+// or 
+
 tt('#selector').top(500, function(event){
 	// do something when the top of the selected element reaches scroll position 500
 });
@@ -117,7 +121,7 @@ Similarly:
 
 ```js
 
-tt('#selector').bottom(500, function(event){
+tt(element).bottom(500, function(event){
 	// do something when the bottom of the selected reaches scroll position 500
 });
 
