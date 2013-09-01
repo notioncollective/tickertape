@@ -16,7 +16,7 @@ Some ideas for syntax:
 ```js
 // this fires on every scroll position update
 // this will be the core of tt
-tt.ticker(function(event){
+tt(function(event){
 	// code that runs on every "tick"
 });
 
