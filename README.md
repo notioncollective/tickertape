@@ -29,8 +29,12 @@ These are simple re-usable transitions that are defined as a JavaScript callback
 
 ### Plugins
 
-There should be a plugin archectecture that allows for bundling of transitions, data-attribute triggers, and miscellanious other JavaScript operations into one package. For instance, there could be a "skrollr" module that essentially mimics the behavior of the popular skrollr JavaScript tool. Or there could be a simple "css" plugin that performs css transitions based on scroll position. Or there could be a "media" plugin that fires specific media (i.e. video) events based on scroll position. Or there could be a "myApp" plugin that handles all of application-specific logic for your project.
+There should be a plugin archectecture that allows for bundling of transitions, data-attribute triggers, and miscellanious other JavaScript operations into one package. For instance:
 
+* There could be a simple "css" plugin that performs css transitions based on scroll position.
+* There could be a "media" plugin that fires specific media (i.e. video) events based on scroll position.
+* There could be a "skrollr" plugin that mimics the behavior of the popular skrollr JavaScript library. 
+* There could be a "myApp" plugin that handles all of application-specific logic for your project.
 
 Scroll Events
 --------------
@@ -186,6 +190,7 @@ Maybe some sort of plugin syntax? This will need to be pretty well thought-out.
 
 ```js
 tt.plugin({
+	name "tt-media",
 	dataAttributes: {
 		'media-start' : 'mediaStart',
 		'media-stop' : 'mediaStop'
